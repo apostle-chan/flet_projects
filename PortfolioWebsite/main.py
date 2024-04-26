@@ -15,6 +15,8 @@ from flet import (
     icons,
     CrossAxisAlignment,
     colors,
+    PopupMenuButton,
+    PopupMenuItem,
 )
 
 """Flet responisve Portfolio website"""
@@ -25,12 +27,16 @@ def main(page: Page):
     page.title = "Flet Portfolio"
 
     def on_resize(e):
-        if page.width <= 730:
+        if page.width < page.height:
             _nav.controls[0].visible = False
             _nav.update()
+            _mini_navbar.visible = True
+            _mini_navbar.update()
         else:
             _nav.controls[0].visible = True
             _nav.update()
+            _mini_navbar.visible = False
+            _mini_navbar.update()
 
     def _change_text_color(e):
         if e.control.content.color == "black":
@@ -73,19 +79,35 @@ def main(page: Page):
         ],
     )
     
+    # minimized navbar
+    _mini_navbar = Row(
+        visible=False,
+        controls=[
+            PopupMenuButton(
+                items=[
+                    PopupMenuItem(text="About me"),
+                    PopupMenuItem(text="Contact"),
+                    PopupMenuItem(text="Services"),
+                ]
+            ),
+        ]
+    )
+    _nav.controls.append(_mini_navbar)
+    
+    
     # titles
     _title = ResponsiveRow(
         vertical_alignment=CrossAxisAlignment.CENTER,
         controls=[
             Container(
-                col={"xs":6, "sm":8, "md":10, "lg":10, "xl":12},
+                # col={"xs":6, "sm":8, "md":10, "lg":10, "xl":12},
                 alignment=alignment.top_center,
                 padding=padding.only(top=20),
-                content=Text("line Indent Portfolio & Projects", 
-                             size=30, 
-                             weight="w600", 
+                content=Text("Line Indent Portfolio & Projects", 
+                             size=40, 
+                             weight="w800", 
                              color=colors.WHITE,
-                             text_align="center"
+                             text_align="center",
                 )
             )
         ]
