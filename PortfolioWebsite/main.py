@@ -17,6 +17,7 @@ from flet import (
     colors,
     PopupMenuButton,
     PopupMenuItem,
+    TextAlign,
 )
 
 """Flet responisve Portfolio website"""
@@ -62,15 +63,15 @@ def main(page: Page):
                     alignment=MainAxisAlignment.END,
                     controls=[
                         Container(
-                            content=Text("About me", weight="w600", color="black"),
+                            content=Text("关 于", weight="w600", color="black"),
                             on_hover=lambda e: _change_text_color(e),
                         ),
                         Container(
-                            content=Text("Contact", weight="w600", color="black"),
+                            content=Text("联 系", weight="w600", color="black"),
                             on_hover=lambda e: _change_text_color(e),
                         ),
                         Container(
-                            content=Text("Services", weight="w600", color="black"),
+                            content=Text("服 务", weight="w600", color="black"),
                             on_hover=lambda e: _change_text_color(e),
                         ),
                     ],
@@ -78,23 +79,43 @@ def main(page: Page):
             )
         ],
     )
-    
+
     # minimized navbar
     _mini_navbar = Row(
         visible=False,
         controls=[
             PopupMenuButton(
                 items=[
-                    PopupMenuItem(text="About me"),
-                    PopupMenuItem(text="Contact"),
-                    PopupMenuItem(text="Services"),
+                    PopupMenuItem(
+                        content=Container(
+                            content=Text(
+                                "关 于", color="black", text_align=TextAlign.CENTER
+                            ),
+                            on_hover=lambda e: _change_text_color(e),
+                        )
+                    ),
+                    PopupMenuItem(
+                        content=Container(
+                            content=Text(
+                                "联 系", color="black", text_align=TextAlign.CENTER
+                            ),
+                            on_hover=lambda e: _change_text_color(e),
+                        )
+                    ),
+                    PopupMenuItem(
+                        content=Container(
+                            content=Text(
+                                "服 务", color="black", text_align=TextAlign.CENTER
+                            ),
+                            on_hover=lambda e: _change_text_color(e),
+                        )
+                    ),
                 ]
             ),
-        ]
+        ],
     )
     _nav.controls.append(_mini_navbar)
-    
-    
+
     # titles
     _title = ResponsiveRow(
         vertical_alignment=CrossAxisAlignment.CENTER,
@@ -103,20 +124,41 @@ def main(page: Page):
                 # col={"xs":6, "sm":8, "md":10, "lg":10, "xl":12},
                 alignment=alignment.top_center,
                 padding=padding.only(top=20),
-                content=Text("Line Indent Portfolio & Projects", 
-                             size=40, 
-                             weight="w800", 
-                             color=colors.WHITE,
-                             text_align="center",
-                )
+                content=Text(
+                    "Line Indent Portfolio & Projects",
+                    size=40,
+                    weight="w800",
+                    color=colors.WHITE,
+                    text_align="center",
+                ),
             )
-        ]
+        ],
+    )
+
+    # title heading
+    _sub_titile = ResponsiveRow(
+        alignment=MainAxisAlignment.CENTER,
+        controls=[
+            Container(
+                # col={"xs":12, "sm":10, "md":10, "lg":10, "xl":12},
+                padding=20,
+                alignment=alignment.top_center,
+                content=Text(
+                    "欢迎来到我的个人小站！\n 如果感兴趣请联系我！",
+                    text_align=TextAlign.CENTER,
+                    size=16,
+                    weight="w500",
+                    color="#bbbbbb",
+                ),
+            ),
+        ],
     )
 
     # main column
     _main_col = Column(alignment=CrossAxisAlignment.CENTER)
     _main_col.controls.append(_nav)
     _main_col.controls.append(_title)
+    _main_col.controls.append(_sub_titile)
 
     # bg container
     _background = Container(
